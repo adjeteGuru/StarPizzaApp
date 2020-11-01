@@ -22,6 +22,9 @@ namespace StarPizzaShop.Models
         [Required]
         [MaxLength(15)]
         public string City { get; set; }
+
+
+        [MaxLength(20)]
         public string County { get; set; }
 
         [Required]

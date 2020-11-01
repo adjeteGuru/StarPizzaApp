@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StarPizzaShop.Database;
 
 namespace StarPizzaShop.Controllers
@@ -14,9 +15,9 @@ namespace StarPizzaShop.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_context.PackIncs.ToList());
+            return View(await _context.PackIncs.ToListAsync());
         }
     }
 }

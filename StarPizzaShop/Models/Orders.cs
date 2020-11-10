@@ -53,7 +53,9 @@ namespace StarPizzaShop.Models
         [MaxLength(50)]
         public string Alergy { get; set; }
 
-        public List<OrderMenus> OrderMenus { get; set; } = new List<OrderMenus>();
+        public ICollection<OrderMenus> OrderMenus { get; set; }
+
+        //public List<OrderMenus> OrderMenus { get; set; } = new List<OrderMenus>();
 
         public Status Status { get; set; }
 

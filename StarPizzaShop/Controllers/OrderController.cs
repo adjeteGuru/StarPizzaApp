@@ -12,17 +12,17 @@ namespace StarPizzaShop.Controllers
 {
     public class OrderController : Controller
     {
-        private readonly StarPizzaContext _context;
+        private readonly StarPizzaContext _db;
 
-        public OrderController(StarPizzaContext context)
+        public OrderController(StarPizzaContext db)
         {
-            _context = context;
+            _db = db;
         }
 
         // GET: Order
         public async Task<IActionResult> Index()
         {
-            var starPizzaContext = _context.Orders.Include(o => o.Customer);
+            var starPizzaContext = _db.Orders.Include(o => o.Customer);
             return View(await starPizzaContext.ToListAsync());
         }
 
@@ -34,7 +34,7 @@ namespace StarPizzaShop.Controllers
                 return NotFound();
             }
 
-            var orders = await _context.Orders
+            var orders = await _db.Orders
                 .Include(o => o.Customer)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orders == null)
@@ -48,7 +48,7 @@ namespace StarPizzaShop.Controllers
         // GET: Order/Create
         public IActionResult Create()
         {
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "FullName");
+            ViewData["CustomerId"] = new SelectList(_db.Customers, "Id", "FullName");
             return View();
         }
 
@@ -61,11 +61,11 @@ namespace StarPizzaShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(orders);
-                await _context.SaveChangesAsync();
+                _db.Add(orders);
+                await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "FullName", orders.CustomerId);
+            ViewData["CustomerId"] = new SelectList(_db.Customers, "Id", "FullName", orders.CustomerId);
             return View(orders);
         }
 
@@ -77,12 +77,12 @@ namespace StarPizzaShop.Controllers
                 return NotFound();
             }
 
-            var orders = await _context.Orders.FindAsync(id);
+            var orders = await _db.Orders.FindAsync(id);
             if (orders == null)
             {
                 return NotFound();
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "FullName", orders.CustomerId);
+            ViewData["CustomerId"] = new SelectList(_db.Customers, "Id", "FullName", orders.CustomerId);
             return View(orders);
         }
 
@@ -102,8 +102,8 @@ namespace StarPizzaShop.Controllers
             {
                 try
                 {
-                    _context.Update(orders);
-                    await _context.SaveChangesAsync();
+                    _db.Update(orders);
+                    await _db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -118,7 +118,7 @@ namespace StarPizzaShop.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "FullName", orders.CustomerId);
+            ViewData["CustomerId"] = new SelectList(_db.Customers, "Id", "FullName", orders.CustomerId);
             return View(orders);
         }
 
@@ -130,7 +130,7 @@ namespace StarPizzaShop.Controllers
                 return NotFound();
             }
 
-            var orders = await _context.Orders
+            var orders = await _db.Orders
                 .Include(o => o.Customer)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orders == null)
@@ -146,15 +146,15 @@ namespace StarPizzaShop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var orders = await _context.Orders.FindAsync(id);
-            _context.Orders.Remove(orders);
-            await _context.SaveChangesAsync();
+            var orders = await _db.Orders.FindAsync(id);
+            _db.Orders.Remove(orders);
+            await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool OrdersExists(int id)
         {
-            return _context.Orders.Any(e => e.Id == id);
+            return _db.Orders.Any(e => e.Id == id);
         }
     }
 }

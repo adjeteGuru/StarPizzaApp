@@ -13,8 +13,7 @@ namespace StarPizzaShop.Database
         {
 
         }
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<Telephone> PhoneNumbers { get; set; }
+
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Orders> Orders { get; set; }
@@ -26,7 +25,7 @@ namespace StarPizzaShop.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<OrderMenus>()
-                .HasKey(t => new { t.OrderId, t.MenuId });
+                .HasKey(t => new { t.OrderId, t.MenuId, t.DrinkId });
 
             modelBuilder.Entity<OrderMenus>()
                 .HasOne(pt => pt.Order)
@@ -37,6 +36,11 @@ namespace StarPizzaShop.Database
                 .HasOne(pt => pt.Menu)
                  .WithMany(t => t.OrderMenus)
                 .HasForeignKey(pt => pt.MenuId);
+
+            modelBuilder.Entity<OrderMenus>()
+               .HasOne(pt => pt.Drink)
+                .WithMany(t => t.OrderMenus)
+               .HasForeignKey(pt => pt.DrinkId);
         }
 
     }

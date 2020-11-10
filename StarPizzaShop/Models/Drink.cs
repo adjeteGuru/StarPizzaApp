@@ -15,7 +15,9 @@ namespace StarPizzaShop.Models
         public string Name { get; set; }
         public float Price { get; set; }
 
-        public List<OrderMenus> OrderMenus { get; set; } = new List<OrderMenus>();
+        public ICollection<OrderMenus> OrderMenus { get; set; }
+
+        //public List<OrderMenus> OrderMenus { get; set; } = new List<OrderMenus>();
 
     }
 }

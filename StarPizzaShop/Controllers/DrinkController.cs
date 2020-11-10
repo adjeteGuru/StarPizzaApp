@@ -10,14 +10,14 @@ namespace StarPizzaShop.Controllers
 {
     public class DrinkController : Controller
     {
-        private readonly StarPizzaContext _context;
-        public DrinkController(StarPizzaContext context)
+        private readonly StarPizzaContext _db;
+        public DrinkController(StarPizzaContext db)
         {
-            _context = context;
+            _db = db;
         }
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Drinks.ToListAsync());
+            return View(await _db.Drinks.ToListAsync());
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -27,7 +27,7 @@ namespace StarPizzaShop.Controllers
                 return NotFound();
             }
 
-            var drink = await _context.Drinks.FirstOrDefaultAsync(x => x.Id == id);
+            var drink = await _db.Drinks.FirstOrDefaultAsync(x => x.Id == id);
 
             if (drink == null)
             {
@@ -37,5 +37,6 @@ namespace StarPizzaShop.Controllers
             return View(drink);
 
         }
+
     }
 }

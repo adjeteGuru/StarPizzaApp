@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20201109115842_PropertiesConstrainsAdded.cs" />
+    <Compile Remove="Migrations\20201109115842_PropertiesConstrainsAdded.Designer.cs" />
+    <Compile Remove="Migrations\20201109124450_PropertiesKeysAdded.cs" />
+    <Compile Remove="Migrations\20201109124450_PropertiesKeysAdded.Designer.cs" />
+    <Compile Remove="Migrations\20201109131328_PropertiesKeysAdded.cs" />
+    <Compile Remove="Migrations\20201109131328_PropertiesKeysAdded.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">

@@ -37,5 +37,10 @@ namespace StarPizzaShop.Controllers
             //.ToList();
             return View(menus);
         }
+
+        public IActionResult Create()
+        {
+            return View(MenuVM);
+        }
     }
 }

@@ -28,6 +28,10 @@ namespace StarPizzaShop.Models
         [MaxLength(50)]
         public string Street { get; set; }
 
+
+        [MaxLength(50)]
+        public string Whereabouts { get; set; }
+
         [Required]
         [MaxLength(15)]
         public string City { get; set; }

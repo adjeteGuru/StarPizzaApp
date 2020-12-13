@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,10 @@ namespace StarPizzaShop.Models
     }
     public class Orders
     {
+        public Orders()
+        {
+            DeliveryCharge = 2; // Default Value £2
+        }
         public int Id { get; set; }
 
         private DateTime? dateCreated = null;
@@ -32,17 +37,8 @@ namespace StarPizzaShop.Models
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
 
-        private float deliveryCharge = 2;
-
-        public float GetDeliveryCharge()
-        {
-            return deliveryCharge;
-        }
-
-        public void SetDeliveryCharge(float value)
-        {
-            deliveryCharge = value;
-        }
+        [DefaultValue(2)]
+        public float DeliveryCharge { get; set; }
 
         public int EstimateTime { get; set; }
 

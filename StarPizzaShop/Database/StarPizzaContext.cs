@@ -18,30 +18,30 @@ namespace StarPizzaShop.Database
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Orders> Orders { get; set; }
         public DbSet<OrderMenus> OrderMenus { get; set; }
-        public DbSet<Drink> Drinks { get; set; }
-        public DbSet<PackInc> PackIncs { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        //public DbSet<PackInc> PackIncs { get; set; }
 
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<OrderMenus>()
-                .HasKey(t => new { t.OrderId, t.MenuId, t.DrinkId });
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<OrderMenus>()
+        //        .HasKey(t => new { t.OrderId, t.MenuId, t.DrinkId });
 
-            modelBuilder.Entity<OrderMenus>()
-                .HasOne(pt => pt.Order)
-                .WithMany(p => p.OrderMenus)
-                .HasForeignKey(pt => pt.OrderId);
+        //    modelBuilder.Entity<OrderMenus>()
+        //        .HasOne(pt => pt.Order)
+        //        .WithMany(p => p.OrderMenus)
+        //        .HasForeignKey(pt => pt.OrderId);
 
-            modelBuilder.Entity<OrderMenus>()
-                .HasOne(pt => pt.Menu)
-                 .WithMany(t => t.OrderMenus)
-                .HasForeignKey(pt => pt.MenuId);
+        //    modelBuilder.Entity<OrderMenus>()
+        //        .HasOne(pt => pt.Menu)
+        //         .WithMany(t => t.OrderMenus)
+        //        .HasForeignKey(pt => pt.MenuId);
 
-            modelBuilder.Entity<OrderMenus>()
-               .HasOne(pt => pt.Drink)
-                .WithMany(t => t.OrderMenus)
-               .HasForeignKey(pt => pt.DrinkId);
-        }
+        //    modelBuilder.Entity<OrderMenus>()
+        //       .HasOne(pt => pt.Drink)
+        //        .WithMany(t => t.OrderMenus)
+        //       .HasForeignKey(pt => pt.DrinkId);
+        //}
 
     }
 }

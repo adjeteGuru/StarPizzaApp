@@ -11,8 +11,7 @@ namespace StarPizzaShop.Models
         public Orders Order { get; set; }
         public int MenuId { get; set; }
         public Menu Menu { get; set; }
-        public int DrinkId { get; set; }
-        public Drink Drink { get; set; }
+       
 
     }
 }

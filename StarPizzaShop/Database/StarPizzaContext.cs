@@ -14,13 +14,23 @@ namespace StarPizzaShop.Database
 
         }
         public DbSet<Address> Addresses { get; set; }
-        public DbSet<Telephone> PhoneNumbers { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Orders> Orders { get; set; }
-        public DbSet<OrderMenus> OrderMenus { get; set; }
-        public DbSet<Drink> Drinks { get; set; }
-        public DbSet<PackInc> PackIncs { get; set; }
+        public DbSet<OrderMenus> OrderMenus { get; set; }    
+        
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Orders>()
+        //        .Property(d => d.DeliveryCharge)
+        //        .HasColumnType("decimal(3,2)")
+        //        .HasDefaultValue(2);
+
+        //    modelBuilder.Entity<Menu>()
+        //        .Property(p => p.Price)
+        //        .HasColumnType("decimal(3,2)");
+        //}
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -37,6 +47,15 @@ namespace StarPizzaShop.Database
                 .HasOne(pt => pt.Menu)
                  .WithMany(t => t.OrderMenus)
                 .HasForeignKey(pt => pt.MenuId);
+
+            modelBuilder.Entity<Orders>()
+               .Property(d => d.DeliveryCharge)
+               .HasColumnType("decimal(3,2)")
+               .HasDefaultValue(2);
+
+            modelBuilder.Entity<Menu>()
+                .Property(p => p.Price)
+                .HasColumnType("decimal(3,2)");
         }
 
     }

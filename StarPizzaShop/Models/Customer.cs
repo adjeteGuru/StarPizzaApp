@@ -14,11 +14,15 @@ namespace StarPizzaShop.Models
         [MaxLength(150)]
         public string FullName { get; set; }
 
-        // a list of addresses and instantiated
-        public List<Address> Addresses { get; set; } = new List<Address>();
+        [Required]
+        [MaxLength(15)]
+        public string Telephone { get; set; }
 
-        // a list of telephone numbers and instantiated
-        public List<Telephone> PhoneNumbers { get; set; } = new List<Telephone>();
+        // a list of addresses and instantiated
+        //public List<Address> Addresses { get; set; } = new List<Address>();
+        public ICollection<Address> Addresses { get; set; }
+       
+        
 
     }
 }

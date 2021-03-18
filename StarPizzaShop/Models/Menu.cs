@@ -13,10 +13,13 @@ namespace StarPizzaShop.Models
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
-        public float Price { get; set; }
-        public List<PackInc> PackIncs { get; set; } = new List<PackInc>();
+        public decimal Price { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+        //public List<PackInc> PackIncs { get; set; } = new List<PackInc>();
 
-        public List<OrderMenus> OrderMenus { get; set; } = new List<OrderMenus>();
+        //public List<OrderMenus> OrderMenus { get; set; } = new List<OrderMenus>();
+        public ICollection<OrderMenus> OrderMenus { get; set; }
 
     }
 }

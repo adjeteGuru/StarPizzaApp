@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StarPizzaShop.Database;
 
 namespace StarPizzaShop.Migrations
 {
     [DbContext(typeof(StarPizzaContext))]
-    partial class StarPizzaContextModelSnapshot : ModelSnapshot
+    [Migration("20210317234431_ModelPropertiesUpdated")]
+    partial class ModelPropertiesUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,7 +109,10 @@ namespace StarPizzaShop.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("CatId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -193,9 +198,7 @@ namespace StarPizzaShop.Migrations
                 {
                     b.HasOne("StarPizzaShop.Models.Category", "Category")
                         .WithMany("Menus")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("StarPizzaShop.Models.OrderMenus", b =>

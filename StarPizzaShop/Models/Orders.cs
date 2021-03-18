@@ -32,17 +32,9 @@ namespace StarPizzaShop.Models
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
 
-        private float deliveryCharge = 2;
+        public decimal  DeliveryCharge { get; set; }
 
-        public float GetDeliveryCharge()
-        {
-            return deliveryCharge;
-        }
 
-        public void SetDeliveryCharge(float value)
-        {
-            deliveryCharge = value;
-        }
 
         public int EstimateTime { get; set; }
 
@@ -53,7 +45,8 @@ namespace StarPizzaShop.Models
         [MaxLength(50)]
         public string Alergy { get; set; }
 
-        public List<OrderMenus> OrderMenus { get; set; } = new List<OrderMenus>();
+        //public List<OrderMenus> OrderMenus { get; set; } = new List<OrderMenus>();
+        public ICollection<OrderMenus> OrderMenus { get; set; }
 
         public Status Status { get; set; }
 

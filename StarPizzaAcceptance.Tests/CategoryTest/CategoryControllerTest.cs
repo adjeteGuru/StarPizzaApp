@@ -4,6 +4,8 @@ using StarPizzaShop.Controllers;
 using StarPizzaShop.DataAccess;
 using StarPizzaShop.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace StarPizzaAcceptance.Tests
@@ -37,7 +39,7 @@ namespace StarPizzaAcceptance.Tests
         }
 
         [Fact]
-        public void ReturnViewWhenInvalidModelState()
+        public void ReturnView_WhenInvalidModelState()
         {
             _controller.ModelState.AddModelError("x", "test Error");
 
@@ -63,7 +65,7 @@ namespace StarPizzaAcceptance.Tests
         }
 
         [Fact]
-        public void NotSaveCategoryWhenModelErrorOccured()
+        public void NotSaveCategory_WhenModelErrorOccured()
         {
             _controller.ModelState.AddModelError("x", "Test error");
 
@@ -75,6 +77,54 @@ namespace StarPizzaAcceptance.Tests
             _mockRepo.Verify(x => x.CreateCategory(It.IsAny<Category>()), Times.Never);
         }
 
+        [Fact]
+        public void ReturnAllCategories_ToListExists()
+        {          
+
+            var categoryList = new List<Category>
+           {
+               new Category{Id = 1, Name="Pizza"},
+               new Category{Id = 2, Name ="BBQ"}
+           };
+
+            var expected = _mockRepo.Setup(x => x.GetCategories()).Returns(categoryList);
+
+            //act
+            var result = _controller.Index();
+
+            //assert
+            Assert.IsAssignableFrom<ViewResult>(result);            
+          
+        }
+
+        [Fact]
+        public void ReturnAllCategories_NoFound()
+        {
+            var categoryList = new List<Category>()
+            {
+                new Category { Id = 1, Name = "Pizza" },
+               new Category { Id = 2, Name = "BBQ" }
+            };
+
+            var expected = _mockRepo.Setup(x => x.GetCategories()).Returns(categoryList);
+
+            var result = _controller.Index();
+
+            Assert.IsAssignableFrom<ViewResult>(result);
+        }
+
+
+        [Fact]
+        public void Return_CategoryById()
+        {                           
+                       
+            var expected =_mockRepo.Setup(x => x.GetCategoryById(It.IsAny<int>())).Returns(new Category { Id = 1 });
+
+            var result = _controller.Details(1);
+
+            Assert.IsAssignableFrom<ViewResult>(result);
+            
+        }
 
     }
 }

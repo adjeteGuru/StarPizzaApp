@@ -62,7 +62,11 @@ namespace StarPizzaShop.Controllers
                 Menus = menus,
                 SelectedCategory = currentCategory
             });           
-        }       
-      
+        }
+        // GET: Menu/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }

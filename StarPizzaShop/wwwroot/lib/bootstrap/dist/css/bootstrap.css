@@ -4563,6 +4563,7 @@ input[type="button"].btn-block {
   border-radius: 0.25rem;
 }
 
+
 .card > hr {
   margin-right: 0;
   margin-left: 0;
@@ -4652,8 +4653,11 @@ input[type="button"].btn-block {
 }
 
 .card-img {
-  width: 100%;
-  border-radius: calc(0.25rem - 1px);
+    width: calc(100% + 60px);
+    margin-left: -30px;
+    overflow: hidden;
+    z-index: 9;
+    border-radius: 0;
 }
 
 .card-img-top {

@@ -10,17 +10,16 @@ namespace StarPizzaShop.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter your name")]
         [MaxLength(150)]
         public string FullName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter contact number")]
         [MaxLength(15)]
         public string Telephone { get; set; }
 
-        // a list of addresses and instantiated
-        //public List<Address> Addresses { get; set; } = new List<Address>();
-        public ICollection<Address> Addresses { get; set; }
+        // a list of addresses and instantiated        
+        public ICollection<Address> Addresses { get; set; } = new List<Address>();
        
         
 

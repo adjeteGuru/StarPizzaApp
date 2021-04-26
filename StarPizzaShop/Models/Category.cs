@@ -13,6 +13,6 @@ namespace StarPizzaShop.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
-        public ICollection<Menu> Menus { get; set; }
+        public ICollection<Menu> Menus { get; set; } = new List<Menu>();
     }
 }

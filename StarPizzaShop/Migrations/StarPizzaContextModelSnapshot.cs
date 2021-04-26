@@ -15,7 +15,7 @@ namespace StarPizzaShop.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .HasAnnotation("ProductVersion", "3.1.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -41,7 +41,6 @@ namespace StarPizzaShop.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("HouseNo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
@@ -110,6 +109,13 @@ namespace StarPizzaShop.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImgPathUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
@@ -127,15 +133,25 @@ namespace StarPizzaShop.Migrations
 
             modelBuilder.Entity("StarPizzaShop.Models.OrderMenus", b =>
                 {
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("MenuId")
                         .HasColumnType("int");
 
-                    b.HasKey("OrderId", "MenuId");
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("MenuId");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("OrderMenus");
                 });
@@ -154,9 +170,6 @@ namespace StarPizzaShop.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
                     b.Property<decimal>("DeliveryCharge")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(3,2)")
@@ -165,8 +178,8 @@ namespace StarPizzaShop.Migrations
                     b.Property<int>("EstimateTime")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("SpecialNote")
                         .HasColumnType("nvarchar(100)")

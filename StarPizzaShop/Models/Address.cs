@@ -9,22 +9,25 @@ namespace StarPizzaShop.Models
     public class Address
     {
         public int Id { get; set; }
+
+        [Display(Name = "Building Name")]
         public string BuildingDetails { get; set; }
 
-        [Required]
+        
         [MaxLength(10)]
+        [Display(Name = "House No")]
         public string HouseNo { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter  street name")]
         [MaxLength(50)]
         public string Street { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter city")]
         [MaxLength(15)]
         public string City { get; set; }
         public string County { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter postcode")]
         [MaxLength(10)]
         public string Postcode { get; set; }
 

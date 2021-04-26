@@ -9,7 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StarPizzaShop.DataAccess;
+using StarPizzaShop.DataAccess.Contracts;
 using StarPizzaShop.Database;
+using StarPizzaShop.Services;
 
 namespace StarPizzaShop
 {
@@ -34,6 +37,13 @@ namespace StarPizzaShop
             }
             );
 
+            services.AddScoped<ICustomerRepo, CustomerRepo>();
+            services.AddScoped<IAddressRepo, AddressRepo>();
+            services.AddScoped<ICategoryRepo, CategoryRepo>();
+            services.AddScoped<IMenuRepo, MenuRepo>();
+
+            //lightweight stateless services
+            services.AddTransient<IMailService, LocalMailService>();
 
         }
 
@@ -44,10 +54,11 @@ namespace StarPizzaShop
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //else app.UseExceptionHandler();
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();

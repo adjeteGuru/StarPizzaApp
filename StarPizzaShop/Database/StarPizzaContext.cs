@@ -35,18 +35,18 @@ namespace StarPizzaShop.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<OrderMenus>()
-                .HasKey(t => new { t.OrderId, t.MenuId });
+            //modelBuilder.Entity<OrderMenus>()
+            //    .HasKey(t => new { t.OrderId, t.MenuId });
 
-            modelBuilder.Entity<OrderMenus>()
-                .HasOne(pt => pt.Order)
-                .WithMany(p => p.OrderMenus)
-                .HasForeignKey(pt => pt.OrderId);
+            //modelBuilder.Entity<OrderMenus>()
+            //    .HasOne(pt => pt.Order)
+            //    .WithMany(p => p.OrderMenus)
+            //    .HasForeignKey(pt => pt.OrderId);
 
-            modelBuilder.Entity<OrderMenus>()
-                .HasOne(pt => pt.Menu)
-                 .WithMany(t => t.OrderMenus)
-                .HasForeignKey(pt => pt.MenuId);
+            //modelBuilder.Entity<OrderMenus>()
+            //    .HasOne(pt => pt.Menu)
+            //     .WithMany(t => t.OrderMenus)
+            //    .HasForeignKey(pt => pt.MenuId);
 
             modelBuilder.Entity<Orders>()
                .Property(d => d.DeliveryCharge)
@@ -56,7 +56,9 @@ namespace StarPizzaShop.Database
             modelBuilder.Entity<Menu>()
                 .Property(p => p.Price)
                 .HasColumnType("decimal(3,2)");
+
         }
+            
 
     }
 }

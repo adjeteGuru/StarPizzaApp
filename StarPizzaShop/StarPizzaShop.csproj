@@ -9,14 +9,30 @@
     <Compile Remove="Migrations\20210317233335_ModelPropertiesUpdated.Designer.cs" />
     <Compile Remove="Migrations\20210317234050_ModelPropertiesUpdated.cs" />
     <Compile Remove="Migrations\20210317234050_ModelPropertiesUpdated.Designer.cs" />
+    <Compile Remove="Migrations\20210414120147_OrderDateAdded.cs" />
+    <Compile Remove="Migrations\20210414120147_OrderDateAdded.Designer.cs" />
+    <Compile Remove="Migrations\20210414121705_OrderDateAdded.cs" />
+    <Compile Remove="Migrations\20210414121705_OrderDateAdded.Designer.cs" />
+    <Compile Remove="Migrations\20210414122637_OrderDateAdded.cs" />
+    <Compile Remove="Migrations\20210414122637_OrderDateAdded.Designer.cs" />
+    <Compile Remove="Migrations\20210414122753_OrderDateAdded.cs" />
+    <Compile Remove="Migrations\20210414122753_OrderDateAdded.Designer.cs" />
+    <Compile Remove="Migrations\20210414132840_OrderDateAdded.cs" />
+    <Compile Remove="Migrations\20210414132840_OrderDateAdded.Designer.cs" />
+    <Compile Remove="Migrations\20210414133106_OrderDateAdded.cs" />
+    <Compile Remove="Migrations\20210414133106_OrderDateAdded.Designer.cs" />
+    <Compile Remove="Migrations\20210414133857_OrderDateAdded.cs" />
+    <Compile Remove="Migrations\20210414133857_OrderDateAdded.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.13">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
   </ItemGroup>
 
 

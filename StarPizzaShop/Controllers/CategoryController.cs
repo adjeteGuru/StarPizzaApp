@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,7 @@ namespace StarPizzaShop.Controllers
 
         public CategoryController(ICategoryRepo categoryRepo)
         {
-            _categoryRepo = categoryRepo;
+            _categoryRepo = categoryRepo ?? throw new ArgumentNullException(nameof(_categoryRepo));
         }
 
         // GET: Category
@@ -29,6 +30,7 @@ namespace StarPizzaShop.Controllers
         }
 
         // GET: Category/Details/5
+
         public IActionResult Details(int id)
         {
             var category = _categoryRepo.GetCategoryById(id);
@@ -41,7 +43,8 @@ namespace StarPizzaShop.Controllers
             return View(category);
         }
 
-        // GET: Category/Create
+        // GET: Category/Create  
+        
         public IActionResult Create()
         {
             return View();
@@ -63,8 +66,9 @@ namespace StarPizzaShop.Controllers
             return View(category);
         }
         
-
+        [Authorize]
         // GET: Category/Delete/5
+        [HttpGet]
         public IActionResult Delete(int id)
         {
             var category = _categoryRepo.GetCategoryById(id);
@@ -77,6 +81,7 @@ namespace StarPizzaShop.Controllers
             _categoryRepo.DeleteCategory(category);
 
             _categoryRepo.SaveChanges();
+
 
             return RedirectToAction(nameof(Index));
         }       

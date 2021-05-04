@@ -11,6 +11,7 @@ namespace StarPizzaShop.Models
         public int Id { get; set; }
 
         [MaxLength(50)]
+        [Required(ErrorMessage = "Please enter category name")]
         public string Name { get; set; }
 
         public ICollection<Menu> Menus { get; set; } = new List<Menu>();

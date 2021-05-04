@@ -10,19 +10,9 @@ using System.Threading.Tasks;
 namespace StarPizzaShop.Controllers
 {
     public class HomeController : Controller
-    {
-
-        private readonly IMenuRepo _menuRepo;
-        public HomeController(IMenuRepo menuRepo)
-        {
-            _menuRepo = menuRepo;
-        }
+    {    
         public IActionResult Index()
-        {
-            //var homeViewModel = new HomeViewModel
-            //{
-            //    MenuOfTheWeek = _menuRepo.MenuExistings
-            //};
+        {           
             return View();
         }
 

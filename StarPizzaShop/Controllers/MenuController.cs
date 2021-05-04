@@ -15,8 +15,8 @@ namespace StarPizzaShop.Controllers
         private readonly ICategoryRepo _categoryRepo;
         public MenuController(IMenuRepo menuRepo, ICategoryRepo categoryRepo)
         {
-            _menuRepo = menuRepo;
-            _categoryRepo = categoryRepo;
+            _menuRepo = menuRepo ?? throw new ArgumentNullException(nameof(_menuRepo));
+            _categoryRepo = categoryRepo ?? throw new ArgumentNullException(nameof(_categoryRepo));
         }     
      
 

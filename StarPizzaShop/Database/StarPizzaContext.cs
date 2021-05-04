@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using StarPizzaShop.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace StarPizzaShop.Database
 {
-    public class StarPizzaContext : DbContext
+    public class StarPizzaContext : IdentityDbContext<IdentityUser>
     {
         public StarPizzaContext(DbContextOptions<StarPizzaContext> options) : base(options)
         {
@@ -35,6 +37,7 @@ namespace StarPizzaShop.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             //modelBuilder.Entity<OrderMenus>()
             //    .HasKey(t => new { t.OrderId, t.MenuId });
 

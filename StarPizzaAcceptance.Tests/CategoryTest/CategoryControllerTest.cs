@@ -37,12 +37,47 @@ namespace StarPizzaAcceptance.Tests
             //So if it is a viewResult it is going to pass, if not then it will fail
             Assert.IsType<ViewResult>(result);
         }
+       
 
         [Fact]
-        public void ReturnView_WhenInvalidModelState()
-        {
-            _controller.ModelState.AddModelError("x", "test Error");
+        public void ReturnAllCategories_ListExists()
+        {          
 
+            var categoryList = new List<Category>
+           {
+               new Category{Id = 1, Name="Pizza"},
+               new Category{Id = 2, Name ="BBQ"}
+           };
+
+            _mockRepo.Setup(x => x.GetCategories()).Returns(categoryList);
+            
+            var result = Assert.IsType<ViewResult>(_controller.Index());
+
+            var model = Assert.IsType<List<Category>>(result.Model);
+
+            Assert.Equal(2, model.Count());                    
+
+        }        
+
+
+        [Fact]
+        public void Return_CategoryById()
+        {
+            _mockRepo.Setup(x => x.GetCategoryById(It.IsAny<int>())).Returns(
+              new Category { Id = 1, Name = "Pizza" });
+
+            var result = Assert.IsType<ViewResult>(_controller.Details(1));
+
+            var model = Assert.IsType<Category>(result.Model);
+           
+            Assert.Equal("Pizza", model.Name);            
+        }
+
+
+        [Fact]
+        public void ReturnView_WhenIsValidModelState()
+        {
+            _controller.ModelState.AddModelError("test", "test Error");
 
             //bcos we are testing new category created
             var category = new Category
@@ -67,7 +102,7 @@ namespace StarPizzaAcceptance.Tests
         [Fact]
         public void NotSaveCategory_WhenModelErrorOccured()
         {
-            _controller.ModelState.AddModelError("x", "Test error");
+            _controller.ModelState.AddModelError("test", "Test error");
 
             var category = new Category();
 
@@ -75,55 +110,6 @@ namespace StarPizzaAcceptance.Tests
 
             //here we check if the added category is called to verify if it is Any Category 
             _mockRepo.Verify(x => x.CreateCategory(It.IsAny<Category>()), Times.Never);
-        }
-
-        [Fact]
-        public void ReturnAllCategories_ToListExists()
-        {          
-
-            var categoryList = new List<Category>
-           {
-               new Category{Id = 1, Name="Pizza"},
-               new Category{Id = 2, Name ="BBQ"}
-           };
-
-            var expected = _mockRepo.Setup(x => x.GetCategories()).Returns(categoryList);
-
-            //act
-            var result = _controller.Index();
-
-            //assert
-            Assert.IsAssignableFrom<ViewResult>(result);            
-          
-        }
-
-        [Fact]
-        public void ReturnAllCategories_NoFound()
-        {
-            var categoryList = new List<Category>()
-            {
-                new Category { Id = 1, Name = "Pizza" },
-               new Category { Id = 2, Name = "BBQ" }
-            };
-
-            var expected = _mockRepo.Setup(x => x.GetCategories()).Returns(categoryList);
-
-            var result = _controller.Index();
-
-            Assert.IsAssignableFrom<ViewResult>(result);
-        }
-
-
-        [Fact]
-        public void Return_CategoryById()
-        {                           
-                       
-            var expected =_mockRepo.Setup(x => x.GetCategoryById(It.IsAny<int>())).Returns(new Category { Id = 1 });
-
-            var result = _controller.Details(1);
-
-            Assert.IsAssignableFrom<ViewResult>(result);
-            
         }
 
     }

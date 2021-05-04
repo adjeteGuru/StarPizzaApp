@@ -13,23 +13,15 @@ namespace StarPizzaShop.Controllers
 {
     public class CustomerController : Controller
     {
-        // private readonly StarPizzaContext _context;
+        
         private readonly ICustomerRepo _repo;
-
-        //public CustomerController(StarPizzaContext context)
-        //{
-        //    _context = context;
-        //}
+          
         public CustomerController(ICustomerRepo repo)
         {
-            _repo = repo;
+            _repo = repo ?? throw new ArgumentNullException(nameof(_repo));
         }
 
-        // GET: Customer
-        //public async Task<IActionResult> Index()
-        //{
-        //    return View(await _context.Customers.ToListAsync());
-        //}
+        // GET: Customer     
 
         public ActionResult Index()
         {
@@ -37,24 +29,7 @@ namespace StarPizzaShop.Controllers
             return View(customerList);
         }
 
-        // GET: Customer/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var customer = await _context.Customers
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (customer == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(customer);
-        //}
-
+        // GET: Customer/Details/5      
         public IActionResult GetById(int id)
         {
             var customer = _repo.GetCustomerById(id);

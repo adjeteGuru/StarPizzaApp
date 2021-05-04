@@ -18,7 +18,7 @@ namespace StarPizzaShop.Controllers
 
         public AddressController(IAddressRepo repo)
         {
-            _repo = repo;
+            _repo = repo ?? throw new ArgumentNullException(nameof(_repo));
         }
 
         // GET: Address

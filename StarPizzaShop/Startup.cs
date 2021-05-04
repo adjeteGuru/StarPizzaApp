@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,6 +38,16 @@ namespace StarPizzaShop
             }
             );
 
+            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<StarPizzaContext>();            
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 5;
+                options.Password.RequireNonAlphanumeric = false;
+                options.User.RequireUniqueEmail = false;
+            });
+            
             services.AddScoped<ICustomerRepo, CustomerRepo>();
             services.AddScoped<IAddressRepo, AddressRepo>();
             services.AddScoped<ICategoryRepo, CategoryRepo>();
@@ -44,7 +55,7 @@ namespace StarPizzaShop
 
             //lightweight stateless services
             services.AddTransient<IMailService, LocalMailService>();
-
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,8 +65,7 @@ namespace StarPizzaShop
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            //else app.UseExceptionHandler();
+            
             else
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -65,6 +75,7 @@ namespace StarPizzaShop
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
@@ -73,6 +84,7 @@ namespace StarPizzaShop
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

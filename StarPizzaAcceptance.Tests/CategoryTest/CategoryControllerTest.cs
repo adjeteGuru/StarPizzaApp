@@ -24,17 +24,11 @@ namespace StarPizzaAcceptance.Tests
         }
 
         [Fact]
-        public void ReturnViewForIndex()
-        {     
-
-            //declare a local variable 'result' of type IActionResult 
-            //and set it to the return value to our controller Index method
+        public void ReturnViewTypeChecked_ForIndex()
+        {    
+          
             ActionResult result = _controller.Index();
 
-            //with the result we can make an assert on it
-            //here it is IsType and we are going to provide a generic type parameter here 
-            //here it is a ViewResult so we re going to pass in the result.
-            //So if it is a viewResult it is going to pass, if not then it will fail
             Assert.IsType<ViewResult>(result);
         }
        
@@ -61,43 +55,59 @@ namespace StarPizzaAcceptance.Tests
 
 
         [Fact]
-        public void Return_CategoryById()
+        public void ReturnSingle_CategoryById()
         {
             _mockRepo.Setup(x => x.GetCategoryById(It.IsAny<int>())).Returns(
               new Category { Id = 1, Name = "Pizza" });
 
-            var result = Assert.IsType<ViewResult>(_controller.Details(1));
+            var result = _controller.Details(1);
 
-            var model = Assert.IsType<Category>(result.Model);
+            ViewResult expected = Assert.IsType<ViewResult>(result);
+
+            var model = Assert.IsType<Category>(expected.Model);
+
+            Assert.NotNull(model);
            
             Assert.Equal("Pizza", model.Name);            
         }
 
 
         [Fact]
-        public void ReturnView_WhenIsValidModelState()
+        public void ReturnView_WhenModelStateInValid()
         {
             _controller.ModelState.AddModelError("test", "test Error");
 
-            //bcos we are testing new category created
             var category = new Category
             {
                 Name = "Pizza",
             };
-
-            //here we need to provide a new category that we re creating
+            
             IActionResult result = _controller.Create(category);
-
-            //here as we know it is a type ViewResult next
+            
             var viewResult = Assert.IsType<ViewResult>(result);
-
-            //since we know it is a type ViewResult then we want to provide the new instance of category            
-            //into this 'model' as we want to know if the model is a type Category model when providing viewmodel
+           
             var model = Assert.IsType<Category>(viewResult.Model);
-
-            //now we want to check that we get the same category we sent in is the same as model we get back
+           
             Assert.Equal(category.Name, model.Name);
         }
+
+
+        [Fact]
+        public void ReturnRedirectToViewForIndex_WhenCategoryAdded()
+        {
+
+            var category = new Category
+            {
+                Name = "Pizza"
+            };           
+
+            var result = _controller.Create(category);            
+
+            Assert.IsAssignableFrom<RedirectToActionResult>(result);
+
+            _mockRepo.Verify(x => x.CreateCategory(It.IsAny<Category>()), Times.Once());
+        }
+
 
         [Fact]
         public void NotSaveCategory_WhenModelErrorOccured()

@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -38,7 +33,7 @@ namespace StarPizzaShop
             }
             );
 
-            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<StarPizzaContext>();            
+            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<StarPizzaContext>();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -47,7 +42,7 @@ namespace StarPizzaShop
                 options.Password.RequireNonAlphanumeric = false;
                 options.User.RequireUniqueEmail = false;
             });
-            
+
             services.AddScoped<ICustomerRepo, CustomerRepo>();
             services.AddScoped<IAddressRepo, AddressRepo>();
             services.AddScoped<ICategoryRepo, CategoryRepo>();
@@ -65,7 +60,7 @@ namespace StarPizzaShop
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             else
             {
                 app.UseExceptionHandler("/Home/Error");

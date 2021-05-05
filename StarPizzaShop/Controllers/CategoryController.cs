@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using StarPizzaShop.DataAccess;
-using StarPizzaShop.Database;
 using StarPizzaShop.Models;
+using System;
 
 namespace StarPizzaShop.Controllers
 {
@@ -34,7 +28,7 @@ namespace StarPizzaShop.Controllers
         public IActionResult Details(int id)
         {
             var category = _categoryRepo.GetCategoryById(id);
-                
+
             if (category == null)
             {
                 return NotFound();
@@ -44,13 +38,14 @@ namespace StarPizzaShop.Controllers
         }
 
         // GET: Category/Create  
-        
+
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Category/Create       
+        // POST: Category/Create
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Id,Name")] Category category)
@@ -65,7 +60,7 @@ namespace StarPizzaShop.Controllers
             }
             return View(category);
         }
-        
+
         [Authorize]
         // GET: Category/Delete/5
         [HttpGet]
@@ -84,7 +79,7 @@ namespace StarPizzaShop.Controllers
 
 
             return RedirectToAction(nameof(Index));
-        }       
-        
+        }
+
     }
 }

@@ -13,17 +13,9 @@ namespace StarPizzaShop.DataAccess
         void UpdateCategory(Category category);
         void DeleteCategory(Category category);
 
-        bool CategoryExistings(int id);
-        
+        bool CategoryExistings(int id);       
        
 
 
-        //Category GetCategoryById(int id, bool includeMenu);
-
-        // IEnumerable<Menu> GetMenusForCategory(int catId);
-
-        // Menu GetMenuForCategory(int catId, int menuId);
-
-        // void CreateMenuForCategory(int catId, Menu menu);
     }
 }

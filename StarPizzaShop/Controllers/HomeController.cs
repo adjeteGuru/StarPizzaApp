@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StarPizzaShop.DataAccess;
 using StarPizzaShop.DataAccess.Contracts;
 using StarPizzaShop.Models;
+using StarPizzaShop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,35 +12,58 @@ using System.Threading.Tasks;
 namespace StarPizzaShop.Controllers
 {
     public class HomeController : Controller
-    {    
-        public IActionResult Index()
-        {           
-            return View();
-        }
-
-        public IActionResult About()
+    {
+        private readonly IMenuRepo _menuRepo;
+        private readonly ICategoryRepo _categoryRepo;
+        public HomeController(IMenuRepo menuRepo, ICategoryRepo categoryRepo)
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            _menuRepo = menuRepo ?? throw new ArgumentNullException(nameof(_menuRepo));
+            _categoryRepo = categoryRepo ?? throw new ArgumentNullException(nameof(_categoryRepo));
         }
 
-        public IActionResult Contact()
+
+        //GET: Menu/Details/5
+        public IActionResult Details(int id)
         {
-            ViewData["Message"] = "Your contact page.";
+            var menu = _menuRepo.GetMenuById(id);
 
-            return View();
+            if (menu == null)
+            {
+                return NotFound();
+            }
+
+            return View(menu);
         }
 
-        public IActionResult Privacy()
+        // GET: Menu
+        public ViewResult Index(string category)
         {
-            return View();
-        }
+            IEnumerable<Menu> menus;
+            string currentCategory;
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+            if (string.IsNullOrEmpty(category))
+            {
+                menus = _menuRepo.GetMenus()
+                    .OrderBy(x => x.Id);
+                currentCategory = "All menus";
+
+            }
+
+            else
+            {
+                menus = _menuRepo.GetMenus()
+                    .Where(x => x.Category.Name == category)
+                    .OrderBy(x => x.Id);
+
+                currentCategory = _categoryRepo.GetCategories()
+                    .FirstOrDefault(x => x.Name == category)?.Name;
+            }
+
+            return View(new MenuListViewModel
+            {
+                Menus = menus,
+                SelectedCategory = currentCategory
+            });
+        }        
     }
 }

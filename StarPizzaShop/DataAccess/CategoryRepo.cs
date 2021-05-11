@@ -48,7 +48,7 @@ namespace StarPizzaShop.DataAccess
        
         public void UpdateCategory(Category category)
         {
-            throw new NotImplementedException();
+            _context.Categories.Update(category);
         }
 
         public void CreateCategory(Category category)

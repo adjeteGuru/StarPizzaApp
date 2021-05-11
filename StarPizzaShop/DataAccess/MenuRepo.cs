@@ -26,30 +26,14 @@ namespace StarPizzaShop.DataAccess
         {
             _context.Menus.Remove(menu);
         }
-
-        //public Menu GetMenuById(int catId, int id)
-        //{
-        //    var category = _context.Categories
-        //        .FirstOrDefault(x => x.Id == catId);
-
-        //    var menu = category.Menus
-        //        .FirstOrDefault(x => x.Id == id);
-
-        //    return menu;
-        //}
+      
 
         public Menu GetMenuById(int id)
         {
             return _context.Menus.FirstOrDefault(x => x.Id == id);
         }
 
-        //public IEnumerable<Menu> GetMenus()
-        //{
-        //    return _context.Menus
-        //        .Include(x=>x.Category)
-        //        .ToList();
-        //}
-
+        
         public IEnumerable<Menu> GetMenus()
         {
             return _context.Menus

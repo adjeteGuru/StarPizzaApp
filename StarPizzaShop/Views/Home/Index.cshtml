@@ -1,8 +1,77 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿
+@model MenuListViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+@*@{
+    ViewData["Title"] = "Home Page";
+}*@
+
+<form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
+<hr />
+
+
+@*<div class="row">
+    <div class="col-md-3 visible-sm">
+        <h4>Category</h4>        
+        <div class="card" style="width: 16rem;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">                 
+                    item
+                </li>               
+            </ul>
+        </div>
+    </div>
+</div>*@
+
+<div class="row">
+
+    <!--<div class="col-md-3 visible-sm">
+        <h4>Category</h4>-->
+        @*<div class="card-header">Category</div>*@
+        <!--<div class="card" style="width: 16rem;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    item
+                </li>
+            </ul>
+        </div>
+    </div>-->
+
+
+    @foreach (var menu in Model.Menus)
+    {
+        <partial name="_HomeCard" model="menu" />
+    }
+
+
+    <div class="col-md-3">
+
+        <h4>Shopping cart</h4>
+        <div class="card" style="width:12rem;">
+            <div class="card-body">
+                <span>Collection</span>
+                <span>Delivery</span>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+
+@*<div class="row">
+    <div class="col-md-3">
+
+        <h4>Shopping cart</h4>
+        <div class="card" style="width:12rem;">
+            <div class="card-body">
+                <span>Collection</span>
+                <span>Delivery</span>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+

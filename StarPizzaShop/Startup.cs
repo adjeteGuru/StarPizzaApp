@@ -24,7 +24,8 @@ namespace StarPizzaShop
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            //services.AddControllersWithViews();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
 
             // connection string for the dbcontext
             services.AddDbContext<StarPizzaContext>(options =>
@@ -59,10 +60,12 @@ namespace StarPizzaShop
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
 
             else
             {
+               
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }

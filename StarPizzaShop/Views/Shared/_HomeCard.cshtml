@@ -1,0 +1,51 @@
+﻿@model Menu
+
+
+@*<div class="col-md-3 visible-sm">
+    <h4>Category</h4> 
+    <div class="card" style="width: 16rem;">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">               
+                item
+            </li>          
+        </ul>
+    </div>
+</div>*@
+
+<div class="col-md-6">
+    <h4>Menus</h4>
+    <div class="card-deck">
+        <div class="card mb-4 shadow-sm" style="width:18rem;">
+            <div class="card-img">
+                <img src="@Model.ImgPathUrl" class="card-img-top" alt="@Model.Name" />
+            </div>
+            <div class="caption">
+                <h5 class="pull-left">@Model.Price.ToString("c")</h5>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.Name</h5>
+                <p class="card-text">
+                    @Model.Description                  
+                    <i class="fas fa-heart float-right"></i>
+                    <i class="far fa-heart float-right"></i>
+                </p>              
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-primary product-btn">Add to card</button>
+
+                    <button type="button" class="btn btn-sm btn-outline-secondary product-btn">View Details</button>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+
+@*<div class="col-md-3">
+
+    <h4>Shopping cart</h4>
+    <div class="card" style="width:12rem;">
+        <div class="card-body">
+            <span>Collection</span>
+            <span>Delivery</span>
+        </div>
+    </div>
+</div>*@

@@ -24,18 +24,22 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
+                          
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Menu" asp-action="Index">Menu</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
-                            </li>                           
+                            </li>
                             @await Component.InvokeAsync("CategoryMenu")
                         </ul>
                 </div>
+                <!--Search form-->
+                @*<form class="d-flex visible-lg">
+                    <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>*@
+
             </div>
         </nav>
     </header>
@@ -43,7 +47,7 @@
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
-        </div>
+    </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
